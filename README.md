@@ -1,9 +1,9 @@
-## async-await-codemod [![Build Status](https://travis-ci.org/vivek12345/async-await-codemod.svg)](https://travis-ci.org/vivek12345/async-await-codemod)
+## ✨ async-await-codemod [![Build Status](https://travis-ci.org/vivek12345/async-await-codemod.svg)](https://travis-ci.org/vivek12345/async-await-codemod)
 
 This repository contains a codemod script for use with
 [JSCodeshift](https://github.com/facebook/jscodeshift) that help add try catch statements to asyc await calls.
 
-### Setup & Run
+### 🚚 Setup & Run
 
 1. `yarn global add jscodeshift`
 1. `git clone https://github.com/vivek12345/async-await-codemod.git`
@@ -15,7 +15,7 @@ This repository contains a codemod script for use with
    * use the `--extensions` option if your files have different extensions than `.js` (for example, `--extensions js,jsx`);
    * see all available [jscodeshift options](https://github.com/facebook/jscodeshift#usage-cli).
 
-### Included Script
+### 📒 Included Script
 
 #### `async-await-with-try-catch`
 
@@ -61,6 +61,7 @@ async function completeApplicationFlow() {
 
 ```
 
+## ⭐ Usage
 
 ```sh
 jscodeshift -t transforms/async-await-with-try-catch.js <path>
