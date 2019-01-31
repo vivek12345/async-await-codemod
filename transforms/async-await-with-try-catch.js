@@ -31,7 +31,11 @@ export default function transformer(file, api) {
       (ExpressionTypes.indexOf(path.parent.node.type) >= 0 || path.parent.node.type === 'VariableDeclarator')
     )
       return;
-    replaceWithTryCatch(path, j.expressionStatement(path.node));
+    if (path.parent.node.type === 'ReturnStatement') {
+      replaceWithTryCatch(path.parent, path.parent.node);
+    } else {
+      replaceWithTryCatch(path, j.expressionStatement(path.node));
+    }
   });
   root.find(j.VariableDeclaration).forEach(path => {
     const variableDeclarators = path.node.declarations;
