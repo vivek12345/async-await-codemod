@@ -1,0 +1,69 @@
+{
+  "name": "async-await-codemod",
+  "version": "1.0.0",
+  "description": "codemod for adding try catch statements to async await code",
+  "main": "index.js",
+  "author": "Vivek Nayyar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vivek12345/async-await-codemod.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "eslint:fix": "eslint --ignore-path .gitignore --fix"
+  },
+  "lint-staged": {
+    "src/**/*.{js}": [
+      "npm run eslint:fix",
+      "git add"
+    ],
+    "src/**/*.{js,json,css}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "transforms/**/*.{js,jsx,mjs}"
+    ],
+    "testMatch": [
+      "<rootDir>/transforms/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/transforms/**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ],
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ]
+  },
+  "keywords": [
+    "codemod",
+    "recast"
+  ],
+  "dependencies": {
+    "jscodeshift": "^0.6.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.0.0",
+    "eslint": "^5.12.1",
+    "jest": "^24.0.0",
+    "prettier": "^1.16.3"
+  }
+}
