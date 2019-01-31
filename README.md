@@ -63,7 +63,7 @@ async function completeApplicationFlow() {
 
 
 ```sh
-jscodeshift -t async-await-codemod/transforms/async-await-with-try-catch.js <path>
+jscodeshift -t transforms/async-await-with-try-catch.js <path>
 ```
 
 ### Recast Options
