@@ -4,7 +4,7 @@ export default function transformer(file, api) {
   const j = api.jscodeshift;
   const root = j(file.source);
   const ExpressionTypes = ['BinaryExpression', 'LogicalExpression', 'NewExpression', 'ObjectExpression'];
-  const DisAllowedFunctionExpressionTypes = ['ArrowFunctionExpression', 'FunctionExpression'];
+  const DisAllowedFunctionExpressionTypes = ['ArrowFunctionExpression', 'FunctionExpression', 'ObjectExpression'];
   function isAlreadyInsideTryBlock(path) {
     return j(path).closest(j.TryStatement).length;
   }

@@ -54,3 +54,25 @@ const a = async function(req, res) {
     console.log(e);
   }
 };
+
+async function testReturnAwaitData() {
+  try {
+    return await getData();
+  } catch (e) {
+    console.log(e);
+  }
+}
+// ObjectExpression
+const CompaniesController = {
+  verifySubDomain: async request => {
+    try {
+      const company = await Company.findOne({
+        where: {
+          id: request.params.id
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}

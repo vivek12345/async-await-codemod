@@ -26,3 +26,17 @@ async function testData() {
 const a = async function(req, res) {
   const tasks = await repository.get();
 };
+
+async function testReturnAwaitData() {
+  return await getData();
+}
+// ObjectExpression
+const CompaniesController = {
+  verifySubDomain: async request => {
+    const company = await Company.findOne({
+      where: {
+        id: request.params.id
+      }
+    });
+  }
+}
