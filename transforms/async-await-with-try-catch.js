@@ -1,10 +1,25 @@
-// Press ctrl+space for code completion
-
-export default function transformer(file, api) {
+export default function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
+
   const ExpressionTypes = ['BinaryExpression', 'LogicalExpression', 'NewExpression', 'ObjectExpression'];
   const DisAllowedFunctionExpressionTypes = ['ArrowFunctionExpression', 'FunctionExpression', 'ObjectExpression'];
+
+  function getCatchBlockExpression() {
+    if(options.catchBlock) {
+      const [obj, property] = options.catchBlock.split('.');
+      if(property) {
+        return j.callExpression(j.memberExpression(j.identifier(obj), j.identifier(property)), [
+          j.identifier('e')
+        ]);
+      } else {
+        return j.callExpression(j.identifier(obj), [
+          j.identifier('e')
+        ]);
+      }
+    }
+    return j.callExpression(j.memberExpression(j.identifier('console'), j.identifier('log')), [j.identifier('e')]);
+  }
   function isAlreadyInsideTryBlock(path) {
     return j(path).closest(j.TryStatement).length;
   }
@@ -13,15 +28,7 @@ export default function transformer(file, api) {
     j(path).replaceWith(
       j.tryStatement(
         j.blockStatement([type]),
-        j.catchClause(
-          j.identifier('e'),
-          null,
-          j.blockStatement([
-            j.expressionStatement(
-              j.callExpression(j.memberExpression(j.identifier('console'), j.identifier('log')), [j.identifier('e')])
-            )
-          ])
-        )
+        j.catchClause(j.identifier('e'), null, j.blockStatement([j.expressionStatement(getCatchBlockExpression())]))
       )
     );
   }

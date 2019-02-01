@@ -67,6 +67,41 @@ async function completeApplicationFlow() {
 jscodeshift -t transforms/async-await-with-try-catch.js <path>
 ```
 
+If you want to replace the default `console.log(e)` with your custom function call for example `error.handleError(e)`,
+you can pass that as an option `--catchBlock`
+
+```sh
+jscodeshift -t transforms/async-await-with-try-catch.js <path> --catchBlock=error.handleError
+```
+
+This will transform your code to:-
+
+```javascript
+async function completeApplicationFlow() {
+  // wait for get session status api to check the status
+  let response;
+  try {
+    response = await getSessionStatusApi();
+  } catch(e) {
+    error.handleError(e)
+  }
+  // wait for getting next set of questions api
+  try {
+    response = await getNextQuestionsApi();
+  } catch(e) {
+    error.handleError(e)
+  }
+  // finally submit application
+  try {
+    response = await submitApplication();
+  } catch(e) {
+    error.handleError(e)
+  }
+}
+
+```
+
+
 ### Recast Options
 
 Options to [recast](https://github.com/benjamn/recast)'s printer can be provided
