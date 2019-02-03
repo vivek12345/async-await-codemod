@@ -71,7 +71,7 @@ If you want to replace the default `console.log(e)` with your custom function ca
 you can pass that as an option `--catchBlock`
 
 ```sh
-jscodeshift -t transforms/async-await-with-try-catch.js <path> --catchBlock="error.handleError"
+jscodeshift -t transforms/async-await-with-try-catch.js <path> --catchBlock="error.handleError(e)"
 ```
 
 This will transform your code to:-
