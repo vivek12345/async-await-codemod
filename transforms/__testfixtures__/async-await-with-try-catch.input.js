@@ -25,7 +25,7 @@ async function testData() {
 }
 const a = async function(req, res) {
   const tasks = await repository.get();
-};
+}
 
 async function testReturnAwaitData() {
   return await getData();
@@ -40,3 +40,29 @@ const CompaniesController = {
     });
   }
 }
+
+// single expression statement with no assignment to any variable
+async function expressionStatement() {
+  a + await getSessionStatusApi();
+}
+
+// class method with async await
+class Abc extends React.Component {
+  async componentDidMount() {
+    const b = await getData();
+  }
+}
+
+// async await inside a call expression as argument to a function
+getData(async () => {
+  await getData();
+})
+
+// jest and enzyme tests 
+describe('<SessionForm />', async () => {
+  let translatedText = await 'dummy translation';
+})
+
+describe('<SessionForm />', async function() {
+  let translatedText = await 'dummy translation';
+})

@@ -11,7 +11,7 @@ async function getApiData() {
     await getApiData();
   } catch (e) {
     console.log(e);
-  };
+  }
 }
 
 async function getQuestionsData() {
@@ -36,7 +36,7 @@ async function reduce(array, reducer, accumulator) {
       accumulator = await reducer(accumulator, array[i], i, array);
     } catch (e) {
       console.log(e);
-    };
+    }
   }
   return accumulator;
 }
@@ -45,7 +45,7 @@ async function testData() {
     await every([2, 3], async v => (await fetch(v)).ok);
   } catch (e) {
     console.log(e);
-  };
+  }
 }
 const a = async function(req, res) {
   try {
@@ -53,7 +53,7 @@ const a = async function(req, res) {
   } catch (e) {
     console.log(e);
   }
-};
+}
 
 async function testReturnAwaitData() {
   try {
@@ -76,3 +76,50 @@ const CompaniesController = {
     }
   }
 }
+
+// single expression statement with no assignment to any variable
+async function expressionStatement() {
+  try {
+    a + await getSessionStatusApi();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// class method with async await
+class Abc extends React.Component {
+  async componentDidMount() {
+    try {
+      const b = await getData();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+// async await inside a call expression as argument to a function
+getData(async () => {
+  try {
+    await getData();
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+// jest and enzyme tests 
+describe('<SessionForm />', async () => {
+  try {
+    let translatedText = await 'dummy translation';
+  } catch (e) {
+    console.log(e);
+  }
+})
+
+describe('<SessionForm />', async function() {
+  try {
+    let translatedText = await 'dummy translation';
+  } catch (e) {
+    console.log(e);
+  }
+})
+
