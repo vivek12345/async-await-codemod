@@ -1,3 +1,6 @@
+const chalk = require('chalk');
+const log = console.log;
+
 export default function transformer(file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
@@ -18,6 +21,8 @@ export default function transformer(file, api, options) {
         });
         return astCatchBlock;
       } catch (e) {
+        log(chalk.red('Malformed code block passed to catchBlock. Please refer to the documentation'));
+        log(chalk.blue('Defaulting to console.log(e) inside catch block'));
         return [
           j.expressionStatement(
             j.callExpression(j.memberExpression(j.identifier('console'), j.identifier('log')), [
