@@ -1,7 +1,9 @@
 /* eslint-disable */
 async function getData() {
+  let b;
+
   try {
-    const b = a + await getSessionStatusApi();
+    b = a + await getSessionStatusApi();
   } catch (e) {
     console.log(e);
   }
@@ -15,16 +17,20 @@ async function getApiData() {
 }
 
 async function getQuestionsData() {
+  let c;
+
   try {
-    const c = b + await new Api().getQuestionsData();
+    c = b + await new Api().getQuestionsData();
   } catch (e) {
     console.log(e);
   }
 }
 
 async function getNormalData() {
+  let c;
+
   try {
-    const c = await getData;
+    c = await getData;
   } catch (e) {
     console.log(e);
   }
@@ -48,8 +54,10 @@ async function testData() {
   }
 }
 const a = async function(req, res) {
+  let tasks;
+
   try {
-    const tasks = await repository.get();
+    tasks = await repository.get();
   } catch (e) {
     console.log(e);
   }
@@ -65,8 +73,10 @@ async function testReturnAwaitData() {
 // ObjectExpression
 const CompaniesController = {
   verifySubDomain: async request => {
+    let company;
+
     try {
-      const company = await Company.findOne({
+      company = await Company.findOne({
         where: {
           id: request.params.id
         }
@@ -89,8 +99,10 @@ async function expressionStatement() {
 // class method with async await
 class Abc extends React.Component {
   async componentDidMount() {
+    let b;
+
     try {
-      const b = await getData();
+      b = await getData();
     } catch (e) {
       console.log(e);
     }
@@ -108,16 +120,20 @@ getData(async () => {
 
 // jest and enzyme tests 
 describe('<SessionForm />', async () => {
+  let translatedText;
+
   try {
-    let translatedText = await 'dummy translation';
+    translatedText = await 'dummy translation';
   } catch (e) {
     console.log(e);
   }
 })
 
 describe('<SessionForm />', async function() {
+  let translatedText;
+
   try {
-    let translatedText = await 'dummy translation';
+    translatedText = await 'dummy translation';
   } catch (e) {
     console.log(e);
   }

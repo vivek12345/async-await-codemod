@@ -40,6 +40,12 @@ export default function transformer(file, api, options) {
   function doesNotHaveAwaitStatement(path) {
     return !j(path).find(j.AwaitExpression).length;
   }
+  function replaceWithAssignmentExpression(path, id, init) {
+    j(path).replaceWith(j.expressionStatement(j.assignmentExpression('=', id, init)));
+  }
+  function insertVariablesInOuterScope(path, declarators) {
+    j(path).insertBefore(j.variableDeclaration('let', declarators));
+  }
   function replaceWithTryCatch(path, type) {
     if (isAlreadyInsideTryBlock(path) || doesNotHaveAwaitStatement(path)) return;
     j(path).replaceWith(
@@ -51,7 +57,22 @@ export default function transformer(file, api, options) {
   }
   root.find(j.VariableDeclarator).forEach(path => {
     if (path.node.init && DisAllowedFunctionExpressionTypes.indexOf(path.node.init.type) < 0) {
-      replaceWithTryCatch(path.parent, path.parent.node);
+      if (!doesNotHaveAwaitStatement(path)) {
+        const init = path.node.init;
+        let declarators;
+        if (path.node.id.type === 'ArrayPattern') {
+          const elements = path.node.id.elements;
+          replaceWithAssignmentExpression(path.parent, j.arrayPattern(elements), init);
+          declarators = elements.map(declarator => {
+            return j.variableDeclarator(declarator, null);
+          });
+        } else {
+          const name = path.node.id.name;
+          declarators = [j.variableDeclarator(j.identifier(name), null)];
+          replaceWithAssignmentExpression(path.parent, j.identifier(name), init);
+        }
+        insertVariablesInOuterScope(path.parent, declarators);
+      }
     }
   });
 
